@@ -17,3 +17,8 @@ A Telegram bot that monitors DexScreener for new Community Takeover (CTO) tokens
 - **API**: DexScreener REST API
 
 ## Installation
+
+```bash
+git clone https://github.com/Yusuf-Sayyed/CTO-Tracker.git
+cd CTO-Tracker
+```
