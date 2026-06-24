@@ -22,3 +22,7 @@ A Telegram bot that monitors DexScreener for new Community Takeover (CTO) tokens
 git clone https://github.com/Yusuf-Sayyed/CTO-Tracker.git
 cd CTO-Tracker
 ```
+
+```bash
+npm install
+```
