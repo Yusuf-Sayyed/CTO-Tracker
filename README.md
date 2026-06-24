@@ -26,3 +26,7 @@ cd CTO-Tracker
 ```bash
 npm install
 ```
+
+## Configuration
+
+Copy the example environment file and fill in your values:
