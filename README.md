@@ -61,3 +61,7 @@ The bot applies these quality filters before alerting:
 4. Must have social links
 5. Boost count under 100
 6. Market cap under 80K
+
+## Deployment
+
+Deploy as a Background Worker on Render for 24/7 uptime.
