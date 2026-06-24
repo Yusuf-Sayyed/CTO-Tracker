@@ -15,3 +15,5 @@ A Telegram bot that monitors DexScreener for new Community Takeover (CTO) tokens
 - **Runtime**: Node.js (ES Modules)
 - **Telegram**: node-telegram-bot-api
 - **API**: DexScreener REST API
+
+## Installation
