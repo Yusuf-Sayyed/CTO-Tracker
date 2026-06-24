@@ -42,3 +42,12 @@ npm start
 ```
 
 ## Bot Commands
+
+| Command | Description |
+|---------|-------------|
+| /start | Welcome message and help |
+| /status | Check bot uptime and stats |
+| /check | Force an immediate poll |
+| /tracked | View all tracked tokens |
+| /update | Force a tracking refresh |
+| /chatid | Get your chat ID |
