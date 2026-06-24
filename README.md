@@ -6,3 +6,4 @@ A Telegram bot that monitors DexScreener for new Community Takeover (CTO) tokens
 
 - Real-time monitoring of DexScreener CTO listings
 - PumpFun token filtering (bonded tokens only)
+- Quality filters: age, socials, boost cap, market cap
