@@ -14,7 +14,7 @@ let isFirstRun = true;
 let pollTimer = null;
 let trackTimer = null;
 
-// ── Main polling loop ───────────────────────────────────────────────
+
 
 async function poll() {
   pollCount++;
@@ -23,11 +23,11 @@ async function poll() {
   try {
     console.log(`\n🔄  ${label} — Fetching latest CTOs...`);
     const rawList = await fetchLatestCTOs();
-    // Pre-filter: only keep PumpFun tokens (address ends with "pump")
+
     const ctoList = rawList.filter((t) => isPumpFunToken(t.tokenAddress));
     console.log(`   📋  Got ${rawList.length} tokens from DexScreener, ${ctoList.length} are PumpFun`);
 
-    // On first run, seed all tokens as seen so we don't alert on old ones
+
     if (isFirstRun) {
       seedSeenTokens(ctoList);
       isFirstRun = false;
@@ -90,7 +90,7 @@ async function poll() {
   }
 }
 
-// ── Tracking update loop ────────────────────────────────────────────
+// Tracking update loop
 
 async function trackingUpdate() {
   const trackedCount = getTrackedCount();
@@ -108,7 +108,7 @@ async function trackingUpdate() {
   }
 }
 
-// ── Bot commands ────────────────────────────────────────────────────
+// Bot commands
 
 function registerCommands() {
   const bot = getBot();

@@ -3,15 +3,12 @@ import config from "./config.js";
 
 let bot = null;
 
-/**
- * Initialize the Telegram bot instance.
- * Validates the token first, then starts polling for commands.
- */
+
 export async function initBot() {
-  // Create bot WITHOUT polling first to validate token
+
   bot = new TelegramBot(config.telegram.botToken, { polling: false });
 
-  // Validate the token by calling getMe
+
   try {
     const me = await bot.getMe();
     console.log(`🤖  Telegram bot initialized: @${me.username} (${me.first_name})`);
@@ -165,7 +162,7 @@ export async function sendAlertBatch(messages) {
         msgReq.onSent(sentMsg);
       }
     }
-    // Small delay between messages to be nice to Telegram
+
     if (messages.length > 1) {
       await sleep(350);
     }
