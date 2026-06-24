@@ -55,3 +55,9 @@ npm start
 ## Filters
 
 The bot applies these quality filters before alerting:
+1. PumpFun tokens only (address ends in pump)
+2. Must be bonded (graduated to Raydium/PumpSwap)
+3. Token age under 2 days
+4. Must have social links
+5. Boost count under 100
+6. Market cap under 80K
