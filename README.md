@@ -51,3 +51,7 @@ npm start
 | /tracked | View all tracked tokens |
 | /update | Force a tracking refresh |
 | /chatid | Get your chat ID |
+
+## Filters
+
+The bot applies these quality filters before alerting:
