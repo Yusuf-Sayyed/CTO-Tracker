@@ -40,3 +40,5 @@ cp .env.example .env
 ```bash
 npm start
 ```
+
+## Bot Commands
