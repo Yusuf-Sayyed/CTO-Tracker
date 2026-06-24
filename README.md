@@ -65,3 +65,7 @@ The bot applies these quality filters before alerting:
 ## Deployment
 
 Deploy as a Background Worker on Render for 24/7 uptime.
+
+## License
+
+MIT
