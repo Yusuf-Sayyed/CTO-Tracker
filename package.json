@@ -1,0 +1,25 @@
+{
+  "name": "dexscreener-cto-monitor",
+  "version": "1.0.0",
+  "description": "Telegram bot that monitors DexScreener for new Community Takeover (CTO) tokens",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "dexscreener",
+    "cto",
+    "telegram",
+    "bot",
+    "crypto"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "https-proxy-agent": "^9.1.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "socks-proxy-agent": "^10.1.0"
+  }
+}
