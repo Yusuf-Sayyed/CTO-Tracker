@@ -107,9 +107,18 @@ const MAX_BOOSTS = 100;
  * @returns {number}
  */
 export function getTotalBoosts(pairData, ordersData) {
-  // Only trust pairData for live active boosts. 
-  // If the field is missing, it means there are 0 active boosts.
-  return pairData?.boosts?.active || 0;
+  // Primary: read from pair data (most accurate for live active boosts)
+  const pairBoosts = pairData?.boosts?.active;
+  if (pairBoosts != null && pairBoosts > 0) {
+    return pairBoosts;
+  }
+
+  // Fallback: count approved orders from the /orders/v1 endpoint
+  if (Array.isArray(ordersData)) {
+    return ordersData.filter((o) => o.status === "approved").length;
+  }
+
+  return 0;
 }
 
 /**

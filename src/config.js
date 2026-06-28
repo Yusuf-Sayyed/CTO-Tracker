@@ -12,7 +12,7 @@ const config = {
     pairsEndpoint: "https://api.dexscreener.com/token-pairs/v1",
     ordersEndpoint: "https://api.dexscreener.com/orders/v1",
   },
-  dataDir: new URL("../../data", import.meta.url).pathname.replace(/^\/([A-Z]:)/, "$1"),
+  dataDir: new URL("../data", import.meta.url).pathname.replace(/^\/([A-Z]:)/, "$1"),
 };
 
 // ── Validation ──────────────────────────────────────────────────────

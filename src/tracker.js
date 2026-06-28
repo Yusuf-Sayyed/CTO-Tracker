@@ -3,7 +3,7 @@ import { join } from "path";
 import config from "./config.js";
 import { fetchTokenPairs } from "./dexscreener.js";
 import { sendReply } from "./notifier.js";
-import { formatUSD, formatTokenUpdate } from "./formatter.js";
+import { formatUSD, formatTokenUpdate, formatDownsideAlert } from "./formatter.js";
 
 const TRACKED_FILE = join(config.dataDir, "tracked_tokens.json");
 
@@ -71,6 +71,10 @@ export function trackToken(token, pairData, messageId) {
     tokenSymbol: pairData?.baseToken?.symbol || "???",
     messageId,
     lastMilestone: 1,
+    // Downside alert tracking
+    peakMultiple: 1,           // highest MC multiple ever reached
+    downsideAlerted: false,    // true after a -30% downside alert has been sent
+    immuneToDownside: false,   // true if token ever reached 3x (winner, no downside alerts)
     // Initial snapshot at alert time
     initial: {
       priceUsd: pairData?.priceUsd ? parseFloat(pairData.priceUsd) : null,
@@ -141,7 +145,19 @@ export async function refreshTrackedTokens() {
       if (entry.messageId && currentMcap != null && entry.initial.marketCap > 0) {
         const multiple = currentMcap / entry.initial.marketCap;
         const hitMilestone = Math.floor(multiple);
-        
+
+        // ── Update peak multiple (highest ever seen) ────────────────
+        const currentPeak = entry.peakMultiple || 1;
+        if (multiple > currentPeak) {
+          entry.peakMultiple = multiple;
+        }
+
+        // ── 3x immunity: if peak ever reached 3x, no more downside alerts
+        if ((entry.peakMultiple || 1) >= 3) {
+          entry.immuneToDownside = true;
+        }
+
+        // ── Milestone alerts (upside) ───────────────────────────────
         if (hitMilestone >= 2 && hitMilestone > (entry.lastMilestone || 1)) {
           entry.lastMilestone = hitMilestone;
           
@@ -153,6 +169,41 @@ export async function refreshTrackedTokens() {
           
           if (hitMilestone >= 5) {
             console.log(`🎉 ${entry.tokenName} reached 5x! Stopping tracking.`);
+            untrackToken(entry.chainId, entry.tokenAddress);
+            continue; // Skip saving updates below, as the token is now untracked
+          }
+        }
+
+        // ── Downside alert (-30% from call price) ───────────────────
+        // Rules:
+        //   1. If token ever hit 3x → immune, never alert downside
+        //   2. Only ONE downside alert per token, ever
+        //   3. Alert when MC drops to ≤70% of initial MC (-30%)
+        //   4. After downside alert, re-arm milestones for recovery pumps
+        if (
+          !entry.immuneToDownside &&
+          !entry.downsideAlerted &&
+          entry.initial.marketCap > 0
+        ) {
+          const dropPercent = ((entry.initial.marketCap - currentMcap) / entry.initial.marketCap) * 100;
+
+          // Alert only if drop is between 30% and 40%. 
+          if (dropPercent >= 30 && dropPercent <= 40) {
+            console.log(`⚠️  ${entry.tokenName} dropped -${dropPercent.toFixed(1)}% from call — sending downside alert`);
+
+            const downsideMsg = formatDownsideAlert(entry, currentMcap, dropPercent);
+            await sendReply(entry.messageId, downsideMsg);
+            await sleep(350);
+
+            entry.downsideAlerted = true;
+            // Re-arm milestones so recovery pumps (2x, 3x, etc.) will alert again
+            entry.lastMilestone = 0;
+
+            updatedCount++;
+          } else if (dropPercent > 40) {
+            // It dropped more than 40% (e.g. instantly rugged 80%).
+            // Permanently untrack it so we stop checking its price and save memory/time.
+            console.log(`🗑️  ${entry.tokenName} dropped >40% — untracking permanently.`);
             untrackToken(entry.chainId, entry.tokenAddress);
             continue; // Skip saving updates below, as the token is now untracked
           }

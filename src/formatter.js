@@ -1,4 +1,5 @@
 import { hasCTOKeywords } from "./detector.js";
+import { getTotalBoosts } from "./filters.js";
 
 // ── Chain display names ─────────────────────────────────────────────
 const CHAIN_NAMES = {
@@ -124,8 +125,8 @@ export function formatCTOAlert(token, pairData = null, ordersData = null) {
   }
   msg += `🕐 Age  —  ${ageStr}\n`;
 
-  // 6. Boosts — strictly read from pairData for live active boosts
-  const boosts = pairData?.boosts?.active || 0;
+  // 6. Boosts — use getTotalBoosts for accurate counting with ordersData fallback
+  const boosts = getTotalBoosts(pairData, ordersData);
   msg += `⚡ Boosts  —  ${boosts}\n\n`;
 
   // 7. Socials
@@ -268,3 +269,20 @@ export function formatTokenDetail(token) {
   return msg;
 }
 
+/**
+ * Format a -30% downside alert message.
+ * Sent as a reply to the original call when the token drops 30% from entry.
+ *
+ * @param {Object} token — tracked token entry
+ * @param {number} currentMcap — current market cap
+ * @param {number} dropPercent — percentage drop from call price (positive number)
+ * @returns {string} — HTML-formatted Telegram message
+ */
+export function formatDownsideAlert(token, currentMcap, dropPercent) {
+  const symbol = escapeHtml(token.tokenSymbol);
+  const initialMc = token.initial?.marketCap != null ? formatUSD(token.initial.marketCap) : "N/A";
+  const currentMc = formatUSD(currentMcap);
+  const elapsed = timeSince(token.alertedAt);
+
+  return `⚠️ $${symbol}  — down -${dropPercent.toFixed(1)}% from call\nMC: ${initialMc} → ${currentMc} | 🕰️ ${elapsed}`;
+}

@@ -1,0 +1,101 @@
+{
+  "solana:fwhc6wxlnvx9b79h7qtptpxjge9dodeqlvx4bbhxpump": {
+    "chainId": "solana",
+    "tokenAddress": "FWHC6wXLNVx9B79H7QtPTpxJge9DoDeQLVX4BbhXpump",
+    "url": "https://dexscreener.com/solana/fwhc6wxlnvx9b79h7qtptpxjge9dodeqlvx4bbhxpump",
+    "alertedAt": "2026-06-28T13:17:41.224Z",
+    "tokenName": "cobiecoin",
+    "tokenSymbol": "cobiecoin",
+    "messageId": 152,
+    "lastMilestone": 0,
+    "peakMultiple": 1.0475214312336936,
+    "downsideAlerted": true,
+    "immuneToDownside": false,
+    "initial": {
+      "priceUsd": 0.00002683,
+      "marketCap": 26830,
+      "fdv": 26830,
+      "liquidity": 11898.38
+    },
+    "latest": {
+      "priceUsd": 0.00001301,
+      "marketCap": 13014,
+      "fdv": 13014,
+      "liquidity": 8294.09,
+      "priceChange1h": 39.69,
+      "priceChange24h": -54.07,
+      "updatedAt": "2026-06-28T15:09:38.840Z"
+    },
+    "updateCount": 76,
+    "gains": {
+      "priceChangePercent": -51.50950428624673,
+      "mcapChangePercent": -51.49459560193813
+    }
+  },
+  "solana:9l2gbhgpts8ct2fwpw9xton8hjfeysmpytk2ldqzpump": {
+    "chainId": "solana",
+    "tokenAddress": "9L2GBHGpTS8Ct2FwpW9XTon8hJfEysMPYTK2LDqZpump",
+    "url": "https://dexscreener.com/solana/9l2gbhgpts8ct2fwpw9xton8hjfeysmpytk2ldqzpump",
+    "alertedAt": "2026-06-28T14:53:39.495Z",
+    "tokenName": "dogweftism",
+    "tokenSymbol": "wef",
+    "messageId": 154,
+    "lastMilestone": 1,
+    "peakMultiple": 1.21650155108576,
+    "downsideAlerted": false,
+    "immuneToDownside": false,
+    "initial": {
+      "priceUsd": 0.00001999,
+      "marketCap": 19986,
+      "fdv": 19986,
+      "liquidity": 10275.25
+    },
+    "latest": {
+      "priceUsd": 0.0000241,
+      "marketCap": 24092,
+      "fdv": 24092,
+      "liquidity": 11272.27,
+      "priceChange1h": -3.65,
+      "priceChange24h": -18.8,
+      "updatedAt": "2026-06-28T15:09:39.199Z"
+    },
+    "updateCount": 16,
+    "gains": {
+      "priceChangePercent": 20.560280140070034,
+      "mcapChangePercent": 20.544381066746723
+    }
+  },
+  "solana:2hci7yeld2n8jrevp3lxbpjsx1rjndb9fbzyp6iupump": {
+    "chainId": "solana",
+    "tokenAddress": "2hci7YELD2n8JREvP3LXbPJSx1rJnDb9fBZyP6iUpump",
+    "url": "https://dexscreener.com/solana/2hci7yeld2n8jrevp3lxbpjsx1rjndb9fbzyp6iupump",
+    "alertedAt": "2026-06-28T15:03:39.302Z",
+    "tokenName": "Ansem Army",
+    "tokenSymbol": "🐂🀄️",
+    "messageId": 155,
+    "lastMilestone": 1,
+    "peakMultiple": 1.210984175340611,
+    "downsideAlerted": false,
+    "immuneToDownside": false,
+    "initial": {
+      "priceUsd": 0.00005908,
+      "marketCap": 59085,
+      "fdv": 59085,
+      "liquidity": 20321.95
+    },
+    "latest": {
+      "priceUsd": 0.00006544,
+      "marketCap": 65448,
+      "fdv": 65448,
+      "liquidity": 21380.88,
+      "priceChange1h": -4.87,
+      "priceChange24h": 135,
+      "updatedAt": "2026-06-28T15:09:39.576Z"
+    },
+    "updateCount": 6,
+    "gains": {
+      "priceChangePercent": 10.76506431956669,
+      "mcapChangePercent": 10.76923076923077
+    }
+  }
+}
