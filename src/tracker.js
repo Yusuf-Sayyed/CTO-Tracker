@@ -187,8 +187,8 @@ export async function refreshTrackedTokens() {
         ) {
           const dropPercent = ((entry.initial.marketCap - currentMcap) / entry.initial.marketCap) * 100;
 
-          // Alert only if drop is between 30% and 40%. 
-          if (dropPercent >= 30 && dropPercent <= 40) {
+          // Alert on any drop >= 30% from call price
+          if (dropPercent >= 30) {
             console.log(`⚠️  ${entry.tokenName} dropped -${dropPercent.toFixed(1)}% from call — sending downside alert`);
 
             const downsideMsg = formatDownsideAlert(entry, currentMcap, dropPercent);
@@ -196,16 +196,17 @@ export async function refreshTrackedTokens() {
             await sleep(350);
 
             entry.downsideAlerted = true;
-            // Re-arm milestones so recovery pumps (2x, 3x, etc.) will alert again
-            entry.lastMilestone = 0;
+            // Re-arm milestones from 3x onward (skip 2x on recovery)
+            entry.lastMilestone = 2;
 
             updatedCount++;
-          } else if (dropPercent > 40) {
-            // It dropped more than 40% (e.g. instantly rugged 80%).
-            // Permanently untrack it so we stop checking its price and save memory/time.
-            console.log(`🗑️  ${entry.tokenName} dropped >40% — untracking permanently.`);
-            untrackToken(entry.chainId, entry.tokenAddress);
-            continue; // Skip saving updates below, as the token is now untracked
+
+            // If it dumped hard (>60%), untrack to save resources
+            if (dropPercent > 60) {
+              console.log(`🗑️  ${entry.tokenName} dropped >${dropPercent.toFixed(0)}% — untracking permanently.`);
+              untrackToken(entry.chainId, entry.tokenAddress);
+              continue;
+            }
           }
         }
       }

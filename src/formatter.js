@@ -1,5 +1,4 @@
 import { hasCTOKeywords } from "./detector.js";
-import { getTotalBoosts } from "./filters.js";
 
 // ── Chain display names ─────────────────────────────────────────────
 const CHAIN_NAMES = {
@@ -123,11 +122,7 @@ export function formatCTOAlert(token, pairData = null, ordersData = null) {
     const h = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
     ageStr = `${d}d ${h}h`;
   }
-  msg += `🕐 Age  —  ${ageStr}\n`;
-
-  // 6. Boosts — use getTotalBoosts for accurate counting with ordersData fallback
-  const boosts = getTotalBoosts(pairData, ordersData);
-  msg += `⚡ Boosts  —  ${boosts}\n\n`;
+  msg += `🕐 Age  —  ${ageStr}\n\n`;
 
   // 7. Socials
   const socialIcons = [];

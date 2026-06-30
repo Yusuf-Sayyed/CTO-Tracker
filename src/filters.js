@@ -96,7 +96,7 @@ export function hasSocials(links = []) {
 
 // ── Filter: Boost cap ───────────────────────────────────────────────
 
-const MAX_BOOSTS = 100;
+const MAX_BOOSTS = 99;
 
 /**
  * Get the total active boosts for a token.
